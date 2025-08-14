@@ -18,9 +18,15 @@
     <ClInclude Include="Header\Math.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Header\External.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main\main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
