@@ -144,10 +144,18 @@
   <ItemGroup>
     <ClInclude Include="Header\External.h" />
     <ClInclude Include="Header\Math.h" />
+    <ClInclude Include="Header\SDLCreate.h" />
+    <ClInclude Include="Header\struct.h" />
+    <ClInclude Include="Primitives\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Header\SDLCreate.cpp" />
     <ClCompile Include="Main\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\DefaultPixelShader.glsl" />
+    <None Include="Shader\DefaultVertexShader.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

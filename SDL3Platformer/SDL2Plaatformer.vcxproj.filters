@@ -21,6 +21,15 @@
     <ClInclude Include="Header\External.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Header\SDLCreate.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitives\Triangle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\struct.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main\main.cpp">
@@ -29,5 +38,12 @@
     <ClCompile Include="glad.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Header\SDLCreate.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\DefaultVertexShader.glsl" />
+    <None Include="Shader\DefaultPixelShader.glsl" />
   </ItemGroup>
 </Project>
