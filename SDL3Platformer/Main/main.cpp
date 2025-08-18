@@ -1,7 +1,6 @@
+#include <pch.h>
 #include "../Header/SDLCreate.h"
-#include "../Header/Math.h"
 #include "../Primitives/Triangle.h"
-#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <crtdbg.h>
@@ -62,48 +61,48 @@ int main()
 
 	bool running = true;
 	SDL_Event event;
-	SDLManager& sdl = SDLManager::Instance();
-	if (!sdl.Init()) return -1;
+	SDLManager& Sdl = SDLManager::Instance();
+	if (!Sdl.Init()) return -1;
 
-	SDL_Window* window = sdl.GetWindow();
-	SDL_GLContext context = sdl.GetContext();
+	SDL_Window* Window = Sdl.GetWindow();
+	SDL_GLContext Context = Sdl.GetContext();
 
-    Triangle tri = Triangle(
-        Vertex(Vec4(0.0f, 0.5f, 0.0f, 1.0f), Vec4(1.0f, 0.0f, 0.0f, 1.0f), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.5f, 1.0f)),
-        Vertex(Vec4(-0.5f, -0.5f, 0.0f, 1.0f), Vec4(0.0f, 1.0f, 0.0f, 1.0f), Vec3(0.0f, 0.0f, 1.0f), Vec2(0.0f, 0.5f)),
-        Vertex(Vec4(0.5f, -0.5f, 0.0f, 1.0f), Vec4(0.0f, 0.0f, 1.0f, 1.0f), Vec3(0.0f, 0.0f, 1.0f), Vec2(1.0f, 1.5f))
+    Triangle Tri = Triangle(
+        Vertex(glm::vec4(0.0f, 0.5f, 0.0f, 1.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.5f, 1.0f)),
+        Vertex(glm::vec4(-0.5f, -0.5f, 0.0f, 1.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 0.5f)),
+        Vertex(glm::vec4(0.5f, -0.5f, 0.0f, 1.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.5f))
 	);
 
 
-    std::string vsSrc = LoadTextFile("Shader\\DefaultVertexShader.glsl");
-    std::string fsSrc = LoadTextFile("Shader\\DefaultPixelShader.glsl");
+    std::string VertexShaderSource = LoadTextFile("Shader\\DefaultVertexShader.glsl");
+    std::string FragmentShaderSource = LoadTextFile("Shader\\DefaultPixelShader.glsl");
 
-    if (vsSrc.empty() || fsSrc.empty()) {
+    if (VertexShaderSource.empty() || FragmentShaderSource.empty()) {
         std::fprintf(stderr, "[ERR] Missing shader files. Set 'Copy to Output Directory'!\n");
-        SDL_GL_DestroyContext(context); SDL_DestroyWindow(window); SDL_Quit(); return 1;
+        SDL_GL_DestroyContext(Context); SDL_DestroyWindow(Window); SDL_Quit(); return 1;
     }
 
-    GLuint vs = CompileShader(GL_VERTEX_SHADER, vsSrc.c_str(), "triangle.vert");
-    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fsSrc.c_str(), "triangle.frag");
+    GLuint vs = CompileShader(GL_VERTEX_SHADER, VertexShaderSource.c_str(), "triangle.vert");
+    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShaderSource.c_str(), "triangle.frag");
     if (!vs || !fs) {
-        SDL_GL_DestroyContext(context); SDL_DestroyWindow(window); SDL_Quit(); return 1;
+        SDL_GL_DestroyContext(Context); SDL_DestroyWindow(Window); SDL_Quit(); return 1;
     }
     GLuint prog = LinkProgram(vs, fs);
     glDeleteShader(vs); glDeleteShader(fs);
     if (!prog) {
-        SDL_GL_DestroyContext(context); SDL_DestroyWindow(window); SDL_Quit(); return 1;
+        SDL_GL_DestroyContext(Context); SDL_DestroyWindow(Window); SDL_Quit(); return 1;
     }
 
     float vertices[] = {
         // Position (x,y,z,w)    // Color (r,g,b,a)
-        tri.v1.Position.x, tri.v1.Position.y, tri.v1.Position.z, tri.v1.Position.w,
-        tri.v1.Color.x,    tri.v1.Color.y,    tri.v1.Color.z,    tri.v1.Color.w,
+        Tri.v1.Position.x, Tri.v1.Position.y, Tri.v1.Position.z, Tri.v1.Position.w,
+        Tri.v1.Color.x,    Tri.v1.Color.y,    Tri.v1.Color.z,    Tri.v1.Color.w,
 
-        tri.v2.Position.x, tri.v2.Position.y, tri.v2.Position.z, tri.v2.Position.w,
-        tri.v2.Color.x,    tri.v2.Color.y,    tri.v2.Color.z,    tri.v2.Color.w,
+        Tri.v2.Position.x, Tri.v2.Position.y, Tri.v2.Position.z, Tri.v2.Position.w,
+        Tri.v2.Color.x,    Tri.v2.Color.y,    Tri.v2.Color.z,    Tri.v2.Color.w,
 
-        tri.v3.Position.x, tri.v3.Position.y, tri.v3.Position.z, tri.v3.Position.w,
-        tri.v3.Color.x,    tri.v3.Color.y,    tri.v3.Color.z,    tri.v3.Color.w,
+        Tri.v3.Position.x, Tri.v3.Position.y, Tri.v3.Position.z, Tri.v3.Position.w,
+        Tri.v3.Color.x,    Tri.v3.Color.y,    Tri.v3.Color.z,    Tri.v3.Color.w,
     };
 
     unsigned int VAO, VBO;
@@ -113,7 +112,6 @@ int main()
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
     // Position
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -131,14 +129,14 @@ int main()
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) running = false;
             if (event.type == SDL_EVENT_WINDOW_CLOSE_REQUESTED &&
-                event.window.windowID == SDL_GetWindowID(window)) {
+                event.window.windowID == SDL_GetWindowID(Window)) {
                 running = false;
             }
         }
 
         // 뷰포트 설정
         int px = 0, py = 0;
-        SDL_GetWindowSizeInPixels(window, &px, &py);
+        SDL_GetWindowSizeInPixels(Window, &px, &py);
         glViewport(0, 0, px, py);
 
         // 화면 클리어
@@ -151,14 +149,14 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         // 스왑 버퍼
-		SDL_GL_SwapWindow(window);
+		SDL_GL_SwapWindow(Window);
 	}
 
 	// 리소스 정리
     glDeleteBuffers(1, &VBO);
     glDeleteVertexArrays(1, &VAO);
     glDeleteProgram(prog);
-	sdl.Destroy();
+	Sdl.Destroy();
 
 	return 0;
 }

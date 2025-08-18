@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header\Math.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Header\External.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -30,15 +27,18 @@
     <ClInclude Include="Header\struct.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main\main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="Header\SDLCreate.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Header\SDLCreate.cpp">
+    <ClCompile Include="glad.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

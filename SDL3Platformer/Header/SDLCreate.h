@@ -1,7 +1,5 @@
 #pragma once
-#include <glad/glad.h>
 #include "../Header/External.h"
-#include <SDL3/SDL.h>
 
 class SDLManager
 {
